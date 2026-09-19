@@ -3,6 +3,8 @@ import { CountryCard } from '../components/CountryCard';
 import type { Country } from '../types/Country';
 import { SearchInput } from '../components/SearchBar';
 import { RegionFilter } from '../components/Filter';
+import { getAllCountries } from '../services/countryService';
+import { Loader } from '../components/Loader';
 
 export const HomePage = () => {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -15,11 +17,8 @@ export const HomePage = () => {
     const loadCountries = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('/data.json');
-        if (!response.ok) throw new Error('Failed to load local data');
-        const json = await response.json();
-        const data: Country[] = json.data?.objects || json;
         
+        const data = await getAllCountries();
         setCountries(data);
       } catch (error) {
         console.error('Error loading countries:', error);
@@ -49,7 +48,7 @@ export const HomePage = () => {
 
       {/* Countries Grid */}
       {isLoading ? (
-        <div className="text-center py-20 text-lg opacity-70">Loading countries...</div>
+        <Loader />
       ) : filteredCountries.length === 0 ? (
         <div className="text-center py-20 text-lg opacity-70">No countries found</div>
       ) : (
