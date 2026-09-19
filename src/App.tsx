@@ -1,6 +1,6 @@
 
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { useTheme } from './hooks/useTheme';
 import { HomePage } from './pages/Home';
@@ -54,9 +54,9 @@ export function App() {
 
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <HashRouter>
         <MainLayout />
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }
