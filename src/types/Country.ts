@@ -77,3 +77,7 @@ export interface Country {
         lng: number;
     };
 }
+
+export interface CountryCardProps {
+    country: Country;
+}
