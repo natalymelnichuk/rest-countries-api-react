@@ -4,6 +4,9 @@ import { useTheme } from '../hooks/useTheme';
 import type { Country } from '../types/Country';
 import { getAllCountries } from '../services/countryService';
 import { Loader } from '../components/Loader';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css'
+
 
 export const CountryDetailPage = () => {
     const { code } = useParams<{ code: string }>();
@@ -84,6 +87,19 @@ export const CountryDetailPage = () => {
     const region = country.region || 'N/A';
     const subregion = country.subregion || 'N/A';
     const capital = country.capitals?.[0]?.name || 'N/A';
+
+    const capitalObj = country.capitals?.[0];
+    const capitalCoords = capitalObj?.coordinates;
+
+    const countryCoordsObj = country.coordinates; 
+
+    const countryLatlng: [number, number] | null = 
+    (capitalCoords?.lat !== undefined && capitalCoords?.lng !== undefined)
+        ? [capitalCoords.lat, capitalCoords.lng]
+        : (countryCoordsObj?.lat !== undefined && countryCoordsObj?.lng !== undefined)
+            ? [countryCoordsObj.lat, countryCoordsObj.lng]
+            : null;
+
     
     const currencies = country.currencies?.map(c => c.name).join(', ') || 'N/A';
     const languages = country.languages?.map(l => l.name).join(', ') || 'N/A';
@@ -176,6 +192,30 @@ export const CountryDetailPage = () => {
                         </div>
                     )}
             </div>
+
+            {countryLatlng && (
+                <div className="mt-8 space-y-3">
+                    <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-slate-100' : 'text-slate-800'}`}>
+                        Location on Map
+                    </h2>
+                    <div className="h-72 w-full rounded-3xl overflow-hidden shadow-md border dark:border-[#334155] border-[#f0e4e3] z-0">
+                        <MapContainer
+                            center={countryLatlng}
+                            zoom={5}
+                            scrollWheelZoom={false}
+                            className="w-full h-full"
+                        >
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            <Marker position={countryLatlng}>
+                                <Popup>{capitalObj?.name ? `${capitalObj.name}, ${name}` : name}</Popup>
+                            </Marker>
+                        </MapContainer>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
