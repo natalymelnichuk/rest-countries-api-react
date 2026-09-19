@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { CountryCard } from '../components/CountryCard';
-import { useTheme } from '../hooks/useTheme';
 import type { Country } from '../types/Country';
+import { SearchInput } from '../components/SearchBar';
+import { RegionFilter } from '../components/Filter';
 
 export const HomePage = () => {
-  const { theme } = useTheme();
   const [countries, setCountries] = useState<Country[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  // Загружаем данные один раз при монтировании
+  
   useEffect(() => {
     const loadCountries = async () => {
       try {
@@ -31,52 +31,23 @@ export const HomePage = () => {
     loadCountries();
   }, []);
 
-  // Вычисляем отфильтрованные страны прямо во время рендеринга (без setState в useEffect!)
   const filteredCountries = countries.filter((country) => {
-    const matchesSearch = country.names.common
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase().trim());
-    
+    const matchesSearch = country.names.common.toLowerCase().includes(searchQuery.toLowerCase().trim());
     const matchesRegion = selectedRegion === '' || country.region === selectedRegion;
-
     return matchesSearch && matchesRegion;
   });
 
+
+  
   return (
     <div className="space-y-8">
-      {/* Панель поиска и фильтров */}
+      {/* Search and Filter components */}
       <div className="flex flex-col md:flex-row justify-between gap-4">
-        <input
-          type="text"
-          placeholder="Search for a country..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className={`w-full md:w-96 px-6 py-3.5 rounded-2xl shadow-sm outline-none transition-colors border ${
-            theme === 'dark'
-              ? 'bg-[#1e293b] border-[#334155] text-slate-100 placeholder-slate-400 focus:border-[#475569]'
-              : 'bg-[#fff9f8] border-[#f0e4e3] text-slate-800 placeholder-slate-400 focus:border-[#e2ccbf]'
-          }`}
-        />
-
-        <select
-          value={selectedRegion}
-          onChange={(e) => setSelectedRegion(e.target.value)}
-          className={`w-full md:w-64 px-5 py-3.5 rounded-2xl shadow-sm outline-none transition-colors cursor-pointer border ${
-            theme === 'dark'
-              ? 'bg-[#1e293b] border-[#334155] text-slate-100'
-              : 'bg-[#fff9f8] border-[#f0e4e3] text-slate-800'
-          }`}
-        >
-          <option value="">Filter by Region</option>
-          <option value="Africa">Africa</option>
-          <option value="Americas">Americas</option>
-          <option value="Asia">Asia</option>
-          <option value="Europe">Europe</option>
-          <option value="Oceania">Oceania</option>
-        </select>
+        <SearchInput value={searchQuery} onChange={setSearchQuery} />
+        <RegionFilter value={selectedRegion} onChange={setSelectedRegion} />
       </div>
 
-      {/* Список или состояние загрузки */}
+      {/* Countries Grid */}
       {isLoading ? (
         <div className="text-center py-20 text-lg opacity-70">Loading countries...</div>
       ) : filteredCountries.length === 0 ? (
