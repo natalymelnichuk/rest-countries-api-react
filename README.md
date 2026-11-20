@@ -14,37 +14,45 @@ https://natalymelnichuk.github.io/rest-countries-api-react/
 * **Maps:** Leaflet & React-Leaflet
 * **Data Handling:** Asynchronous API requests with a robust local fallback mechanism
 
-## Getting Started Locally
+## Local Development Setup
 
-1. **Clone the repository:**
-   ```bash
+Follow these steps to get a local copy of the project up and running on your machine.
+
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm
+
+### 1. Clone the Repository
    git clone [https://github.com/natalymelnichuk/rest-countries-api-react.git]
    cd rest-countries-api-react
 
-## Project Reflection
+## Key Features & User Capabilities
 
-* **Development Process & Implementation** 
-During the development and finalization of this single-page application, the primary objective was to refactor and polish a modern React application utilizing TypeScript, Tailwind CSS, React Router, and interactive map integration. The project architecture was built around modular services and clean component-driven design. Special attention was paid to robust error handling and API resilience. To counter strict CORS policies and rate limits from public endpoints, a seamless fallback mechanism to local JSON data was implemented, ensuring uninterrupted user experience. Furthermore, an interactive Leaflet map was integrated into the country detail page, featuring a prioritized coordinate-resolution hierarchy (capital coordinates first, followed by country-level coordinates).
+### 1. Global Country Explorer & Filtering
+- **Real-Time Search:** Instantaneously search for countries by name across the global dataset.
+- **Region Filtering:** Filter nations dynamically by geographic region (Africa, Americas, Asia, Europe, Oceania).
+- **Overview Cards:** Clean, scannable cards displaying country flags, population figures, regions, and capital cities.
 
-### Challenges Faced & Solutions
-During the development and production deployment, several key technical challenges were successfully addressed:
+<!-- SCREENSHOT: Главная страница приложения (Desktop) — сетка карточек стран с открытым поиском или выбранным фильтром по региону -->
 
-1. **Coordinate Priority Hierarchy for Maps:**
-   * *Challenge:* Different countries lacked uniform geographic data, sometimes missing top-level coordinates or relying solely on capital city data.
-   * *Solution:* Implemented a robust fallback hierarchy to determine map centers seamlessly—first prioritizing capital coordinates, then falling back to country-level coordinates to ensure every map renders accurately.
+### 2. Detailed Country Profiles & Border Navigation
+- **Comprehensive Country Insights:** View native names, subregions, capital cities, currencies, spoken languages, and top-level domains.
+- **Interactive Border Links:** Clickable neighboring country badges allow seamless exploration across bordering nations without returning to the main list.
 
-2. **API Resilience & CORS Fallbacks:**
-   * *Challenge:* Public REST endpoints occasionally triggered rate limits (HTTP 429) or strict CORS blocks during intensive queries.
-   * *Solution:* Built a resilient data service layer featuring an automatic fallback to local JSON datasets, guaranteeing uninterrupted app functionality.
+<!-- SCREENSHOT: Страница детальной информации о стране (Desktop) — с флагом, характеристиками, кнопками граничащих стран и картой -->
+<img width="950" height="809" alt="Screenshot 2026-11-20 at 3 27 18 PM" src="https://github.com/user-attachments/assets/463797e2-9a6c-4459-8189-bd1a0013e1d9" />
 
-3. **Leaflet Marker Asset Bundling (Vite):**
-   * *Challenge:* Vite's static asset optimization failed to resolve default Leaflet marker image paths (`marker-icon.png`, `marker-shadow.png`), resulting in persistent 404 errors.
-   * *Solution:* Explicitly imported the image modules and passed a strongly-typed custom `L.icon` instance directly into the React-Leaflet `<Marker>` component.
 
-4. **SPA Client-Side Routing:**
-   * *Challenge:* Standard HTML5 history routing caused 404 errors upon deep-link refreshes on static hosting environments like GitHub Pages.
-   * *Solution:* Switched to `HashRouter` to ensure stable and predictable client-side navigation across all nested views.
+### 3. Interactive Leaflet Map Integration
+- **Dynamic Viewport Centering:** Automatically centers the map on the selected nation using a prioritized coordinate-resolution hierarchy (capital city coordinates first, falling back to country-level coordinates).
+- **Custom Map Markers:** Renders reliable, properly bundled location pins across both local development and production builds.
 
-5. **Environment Configuration & Security:**
-   * *Challenge:* Safely managing configuration credentials without exposing sensitive tokens in the public repository.
-   * *Solution:* Utilized Vite's built-in `import.meta.env` system alongside `.env` configuration, ensuring sensitive keys remain hidden and out of source control.
+<!-- SCREENSHOT: Крупный план интерактивной карты Leaflet с маркером столицы/страны -->
+
+### 4. Resilient API Layer & Offline Fallback
+- **Fault-Tolerant Data Fetching:** Automatically switches to a bundled local JSON dataset if the external REST Countries API encounters rate limits (`HTTP 429`), strict CORS policies, or network downtime—ensuring uninterrupted functionality.
+
+### 5. Fully Responsive Mobile-First Design
+- **Cross-Device Compatibility:** Adaptive layouts, responsive grids, and touch-friendly navigation optimized for mobile phones, tablets, and desktop screens.
+
+<!-- SCREENSHOT: Мобильная версия (Mobile View) — главная страница или страница страны с картой на узком экране -->
