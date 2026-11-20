@@ -33,21 +33,21 @@ Follow these steps to get a local copy of the project up and running on your mac
 - **Region Filtering:** Filter nations dynamically by geographic region (Africa, Americas, Asia, Europe, Oceania).
 - **Overview Cards:** Clean, scannable cards displaying country flags, population figures, regions, and capital cities.
 
-<!-- SCREENSHOT: Главная страница приложения (Desktop) — сетка карточек стран с открытым поиском или выбранным фильтром по региону -->
+<img width="950" height="809" alt="Screenshot 2026-11-20 at 3 27 18 PM" src="https://github.com/user-attachments/assets/463797e2-9a6c-4459-8189-bd1a0013e1d9" />
 
 ### 2. Detailed Country Profiles & Border Navigation
 - **Comprehensive Country Insights:** View native names, subregions, capital cities, currencies, spoken languages, and top-level domains.
 - **Interactive Border Links:** Clickable neighboring country badges allow seamless exploration across bordering nations without returning to the main list.
 
-<!-- SCREENSHOT: Страница детальной информации о стране (Desktop) — с флагом, характеристиками, кнопками граничащих стран и картой -->
-<img width="950" height="809" alt="Screenshot 2026-11-20 at 3 27 18 PM" src="https://github.com/user-attachments/assets/463797e2-9a6c-4459-8189-bd1a0013e1d9" />
+<img width="951" height="600" alt="Screenshot 2026-11-20 at 3 29 18 PM" src="https://github.com/user-attachments/assets/1c7c5ba9-e570-499a-ac53-18f3ba32c86e" />
 
 
 ### 3. Interactive Leaflet Map Integration
 - **Dynamic Viewport Centering:** Automatically centers the map on the selected nation using a prioritized coordinate-resolution hierarchy (capital city coordinates first, falling back to country-level coordinates).
 - **Custom Map Markers:** Renders reliable, properly bundled location pins across both local development and production builds.
 
-<!-- SCREENSHOT: Крупный план интерактивной карты Leaflet с маркером столицы/страны -->
+<img width="859" height="269" alt="Screenshot 2026-11-20 at 3 30 25 PM" src="https://github.com/user-attachments/assets/58e848b1-2bc4-4ab1-91f8-da7246905905" />
+
 
 ### 4. Resilient API Layer & Offline Fallback
 - **Fault-Tolerant Data Fetching:** Automatically switches to a bundled local JSON dataset if the external REST Countries API encounters rate limits (`HTTP 429`), strict CORS policies, or network downtime—ensuring uninterrupted functionality.
@@ -55,4 +55,6 @@ Follow these steps to get a local copy of the project up and running on your mac
 ### 5. Fully Responsive Mobile-First Design
 - **Cross-Device Compatibility:** Adaptive layouts, responsive grids, and touch-friendly navigation optimized for mobile phones, tablets, and desktop screens.
 
-<!-- SCREENSHOT: Мобильная версия (Mobile View) — главная страница или страница страны с картой на узком экране -->
+<img width="298" height="654" alt="Screenshot 2026-11-20 at 3 30 59 PM" src="https://github.com/user-attachments/assets/b087432b-3390-4fc5-a157-30d7d5ecfd8e" />
+
+<img width="304" height="586" alt="Screenshot 2026-11-20 at 3 31 12 PM" src="https://github.com/user-attachments/assets/adc2b670-0bca-4520-a505-603e21ed3686" />
